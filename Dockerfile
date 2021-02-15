@@ -1,7 +1,6 @@
 FROM golang
 
 RUN go get -u github.com/fullstorydev/grpcurl
-RUN go list -m github.com/fullstorydev/grpcurl
 RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl
 
 FROM ubuntu
