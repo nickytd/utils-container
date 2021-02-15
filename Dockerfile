@@ -1,8 +1,8 @@
 FROM golang
 
-RUN go get -u github.com/fullstorydev/grpcurl \
-  && go get -d -v -t -u -f /github.com/fullstorydev/grpcurl/cmd/grpcurl \
-  && go install github.com/fullstorydev/grpcurl/cmd/grpcurl
+RUN go get -u github.com/fullstorydev/grpcurl
+RUN go list -m github.com/fullstorydev/grpcurl
+RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl
 
 FROM ubuntu
 RUN apt-get update && apt-get install -y smbclient dnsutils tcpdump net-tools wget ruby netcat procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq
