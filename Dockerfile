@@ -8,6 +8,6 @@ RUN apt-get update && apt-get install -y smbclient dnsutils tcpdump net-tools wg
 RUN apt-get autoremove --purge
 RUN apt-get clean
 
-COPY --from=0 /grpcurl /usr/local/bin/grpcurl
+COPY --from=0 grpcurl /usr/local/bin/grpcurl
 
 CMD ["bash","-c"]
