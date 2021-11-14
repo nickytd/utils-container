@@ -1,10 +1,10 @@
 FROM golang
 
 RUN go get -u github.com/fullstorydev/grpcurl/cmd/grpcurl
-RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl
+RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
 
 FROM ubuntu
-RUN apt-get update && apt-get install -y smbclient dnsutils tcpdump net-tools wget ruby netcat procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq
+RUN apt-get update && apt-get install -y smbclient dnsutils tcpdump net-tools wget ruby netcat procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq systemd
 RUN apt-get autoremove --purge
 RUN apt-get clean
 
