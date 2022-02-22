@@ -24,6 +24,11 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: nickytd/utils
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+
       -
         name: Login to DockerHub
         if: github.event_name != 'pull_request'
@@ -37,5 +42,5 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ["${{ steps.meta.outputs.tags }}", "nickytd/utils:latest"]
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
