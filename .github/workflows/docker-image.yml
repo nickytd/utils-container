@@ -24,6 +24,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: nickytd/utils
+          flavor: |
+            latest=true
           tags: |
             type=ref,event=branch
             type=ref,event=pr
