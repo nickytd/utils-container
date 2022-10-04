@@ -21,7 +21,5 @@ COPY --from=0 /go/bin/** /usr/local/bin
 # pickup crictl from curlimages
 COPY --from=1 /tmp/crictl /usr/local/bin
 # install required binaries with os package manager
-RUN apt-get update
-RUN apt-get install -y smbclient dnsutils tcpdump net-tools wget ruby netcat procinfo \
-    procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq systemd sysbench
+RUN apt-get update && apt-get install -y smbclient dnsutils tcpdump net-tools wget ruby netcat procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq systemd sysbench
 RUN apt-get autoremove --purge && apt-get clean
