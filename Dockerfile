@@ -21,5 +21,5 @@ EOT
 ENV VERSION="v1.25.0"
 RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz \
         --output crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
-RUN tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz -C /usr/local/bin
-RUN rm -f crictl-${VERSION}linux-${TARGETARCH}.tar.gz
+RUN tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz -C /usr/local/bin && \
+  rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
