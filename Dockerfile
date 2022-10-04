@@ -4,7 +4,7 @@ ARG TARGETARCH
 RUN GOOS=linux GOARCH=${TARGETARCH} go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.8.7
 
 # build utils container image
-FROM --platform=${BUILDPLATFORM} ubuntu:22.04
+FROM --platform=${TARGETPLATFORM} ubuntu:22.04
 ARG TARGETARCH
 
 # pickup grpcurl from build
