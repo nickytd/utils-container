@@ -14,7 +14,7 @@ RUN tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 RUN rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 
 # build utils container image
-FROM --platform=${BUILDPLATFORM} ubuntu:22.04
+FROM --platform=${TARGETPLATFORM} ubuntu:22.04
 # pickup grpcurl from build
 COPY --from=0 /go/bin/** /usr/local/bin
 # pickup crictl from curlimages
