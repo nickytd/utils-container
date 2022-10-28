@@ -21,5 +21,5 @@ COPY --from=0 /go/bin/** /usr/local/bin
 COPY --from=1 /tmp/crictl /usr/local/bin
 # install required binaries with os package manager
 RUN apt-get update
-RUN apt-get install -y smbclient dnsutils tcpdump net-tools wget netcat procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq systemd sysbench socat bridge-utils nmap
+RUN apt-get install -y bash smbclient dnsutils tcpdump net-tools wget netcat procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq systemd sysbench socat bridge-utils nmap
 RUN apt-get autoremove --purge && apt-get clean
