@@ -13,12 +13,12 @@ RUN tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 RUN rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 
 # build utils container image
-FROM ubuntu:22.04
+FROM ubuntu:23.04
 # pickup grpcurl from build
 COPY --from=0 /go/bin/** /usr/local/bin
 # pickup crictl from curlimages
 COPY --from=1 /tmp/crictl /usr/local/bin
 # install required binaries with os package manager
 RUN apt-get update
-RUN apt-get install -y bash smbclient dnsutils tcpdump net-tools wget netcat procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq systemd sysbench socat bridge-utils nmap
+RUN apt-get install -y bash smbclient dnsutils tcpdump net-tools wget netcat-traditional procinfo procps cifs-utils vim stress curl iputils-ping iptables stress-ng iotop jq systemd sysbench socat bridge-utils nmap
 RUN apt-get autoremove --purge && apt-get clean
