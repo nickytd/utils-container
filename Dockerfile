@@ -1,7 +1,6 @@
 # build grpcurl
-FROM --platform=${BUILDPLATFORM} golang:1.19.1 as build
-ARG TARGETARCH
-RUN GOOS=linux GOARCH=${TARGETARCH} go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.8.7
+FROM golang:1.20.4 as build
+RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.8.7
 
 # fetch containerd cli tool
 FROM --platform=${BUILDPLATFORM} curlimages/curl:7.85.0 as curlimages
