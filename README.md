@@ -1,5 +1,5 @@
 # utils-container
-An ubuntu based image used for troubeshooting tasks.
+An ubuntu based image (23.04) used for troubeshooting tasks.
 Includes: 
 - bash
 - bridge-utils
