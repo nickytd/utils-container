@@ -1,5 +1,5 @@
 # utils-container
-An ubuntu based image (23.04) used for troubeshooting tasks.
+An ubuntu based image (23.10) used for troubeshooting tasks.
 Includes: 
 - bash
 - bridge-utils
@@ -7,6 +7,8 @@ Includes:
 - crictl (from https://github.com/kubernetes-sigs/cri-tools)
 - curl
 - dnsutils
+- fzf
+- fd-find
 - grpcurl (from https://github.com/fullstorydev/grpcurl)
 - iotop
 - iperf
