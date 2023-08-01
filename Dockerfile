@@ -13,7 +13,7 @@ RUN tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 RUN rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 
 # build utils container image
-FROM ubuntu:23.04
+FROM ubuntu:23.10
 # pickup grpcurl from build
 COPY --from=0 /go/bin/** /usr/local/bin
 # pickup crictl from curlimages
@@ -26,6 +26,8 @@ RUN apt-get install -y \
         cifs-utils \
         curl \
         dnsutils \
+        fzf \
+        fd-find \
         iotop \
         iperf \
         iptables \
