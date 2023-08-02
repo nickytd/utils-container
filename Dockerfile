@@ -1,11 +1,11 @@
 # build grpcurl
-FROM golang:1.20.4 as build
+FROM golang:1.20.6 as build
 RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.8.7
 
 # fetch containerd cli tool
 FROM curlimages/curl:7.85.0 as curlimages
 ARG TARGETARCH
-ENV VERSION="v1.27.0"
+ENV VERSION="v1.27.1"
 WORKDIR /tmp
 RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz \
         --output crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
