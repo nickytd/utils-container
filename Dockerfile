@@ -11,17 +11,12 @@ RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/${VER
         --output crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 RUN tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
 
-RUN curl -LO k8s.work/amicontained
-RUN chmod +x amicontained
-
 # build utils container image
 FROM ubuntu:23.10
 # pickup grpcurl from build
 COPY --from=0 /go/bin/** /usr/local/bin
 # pickup crictl from curlimages
 COPY --from=1 /tmp/crictl /usr/local/bin
-# pick up amicontained from curlimages
-COPY --from=1 /tmp/amicontained /usr/local/bin
 # install required binaries with os package manager
 RUN apt-get update && apt-get install -y \
         bash \
