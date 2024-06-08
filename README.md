@@ -29,5 +29,6 @@ Includes:
 - systemd
 - tcpdump
 - vim
+- yq
 - wget
   
