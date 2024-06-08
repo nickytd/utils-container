@@ -2,21 +2,24 @@
 FROM golang:1.22 as build
 RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.9.1
 
-# fetch containerd cli tool
-FROM curlimages/curl:8.8.0 as curlimages
+# fetch containerd cli & kubectl tools
+FROM curlimages/curl:8.8.0 as curl
 ARG TARGETARCH
 ENV VERSION="v1.30.0"
 WORKDIR /tmp
-RUN curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz \
-        --output crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
-RUN tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz
+RUN curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
+        tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
+        rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
+        curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${TARGETARCH}/kubectl
 
 # build utils container image
 FROM ubuntu:24.04
-# pickup grpcurl from build
-COPY --from=0 /go/bin/** /usr/local/bin
-# pickup crictl from curlimages
-COPY --from=1 /tmp/crictl /usr/local/bin
+# pickup grpcurl from build image
+COPY --from=build /go/bin/grpcurl /usr/local/bin
+# pickup crictl from curl image
+COPY --from=curl /tmp/crictl /usr/local/bin
+# pickup kubectl from curl image
+COPY --from=curl /tmp/kubectl /usr/local/bin
 # install required binaries with os package manager
 RUN apt-get update && apt-get install -y \
         bash \
@@ -44,5 +47,6 @@ RUN apt-get update && apt-get install -y \
         systemd \
         tcpdump \
         vim \
+        yq \
         wget && \
         apt-get autoremove --purge && apt-get clean
