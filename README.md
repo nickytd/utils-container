@@ -1,5 +1,5 @@
 # utils-container
-An ubuntu based image (23.10) used for troubeshooting tasks.
+An ubuntu based image (24.04) used for troubeshooting tasks.
 Includes: 
 - bash
 - bridge-utils
@@ -15,6 +15,7 @@ Includes:
 - iptables
 - iputils-ping
 - jq
+- kubectl (from https://dl.k8s.io/)
 - net-tools
 - netcat-traditional
 - nmap
