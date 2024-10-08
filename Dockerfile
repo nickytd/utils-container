@@ -1,9 +1,9 @@
 # build grpcurl
-FROM golang:1.22 as build
+FROM golang:1.22 AS build
 RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.9.1
 
 # fetch containerd cli & kubectl tools
-FROM curlimages/curl:8.10.1 as curl
+FROM curlimages/curl:8.10.1 AS curl
 ARG TARGETARCH
 ENV VERSION="v1.31.1"
 WORKDIR /tmp
