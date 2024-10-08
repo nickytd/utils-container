@@ -3,9 +3,9 @@ FROM golang:1.22 as build
 RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.9.1
 
 # fetch containerd cli & kubectl tools
-FROM curlimages/curl:8.8.0 as curl
+FROM curlimages/curl:8.10.1 as curl
 ARG TARGETARCH
-ENV VERSION="v1.30.0"
+ENV VERSION="v1.31.1"
 WORKDIR /tmp
 RUN curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
         tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
