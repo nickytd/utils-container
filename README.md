@@ -1,12 +1,12 @@
 # utils-container
-An ubuntu based image (24.04) used for troubeshooting tasks.
-Includes: 
+An ubuntu based image (25.04) used for troubeshooting tasks.
+Includes:
 - bash
 - bridge-utils
-- cifs-utils
 - crictl (from https://github.com/kubernetes-sigs/cri-tools)
 - curl
 - dnsutils
+- doggo (from https://github.com/mr-karan/doggo)
 - fzf
 - fd-find
 - grpcurl (from https://github.com/fullstorydev/grpcurl)
@@ -21,14 +21,13 @@ Includes:
 - nmap
 - procinfo
 - procps
-- smbclient
 - socat
 - stress
 - stress-ng
 - sysbench
 - systemd
+- tmux
 - tcpdump
 - vim
 - yq
 - wget
-  
