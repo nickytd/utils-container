@@ -24,7 +24,6 @@ COPY --from=curl /tmp/kubectl /usr/local/bin
 RUN apt-get update && apt-get install -y \
         bash \
         bridge-utils \
-        cifs-utils \
         curl \
         dnsutils \
         fzf \
@@ -40,12 +39,10 @@ RUN apt-get update && apt-get install -y \
         nmap \
         procinfo \
         procps \
-        smbclient \
         socat \
         stress \
         stress-ng \
         sysbench \
-        systemd \
         tcpdump \
         tmux \
         vim \
