@@ -15,16 +15,14 @@ RUN curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${VE
 
 # build utils container image
 FROM ubuntu:25.10
-# pickup grpcurl from build image
-COPY --from=build /go/bin/grpcurl /usr/local/bin
-# pickup doggo from build image
-COPY --from=build /go/bin/doggo /usr/local/bin
 # pickup crictl from curl image
 COPY --from=curl /tmp/crictl /usr/local/bin
 # pickup kubectl from curl image
 COPY --from=curl /tmp/kubectl /usr/local/bin
 # copy tmux configuration
 COPY ./.tmux.conf /root/.tmux.conf
+# copy bash aliases
+COPY ./.bash_aliases /root/.bash_aliases
 # install required binaries with os package manager
 RUN apt-get update && apt-get install -y \
         bash \
