@@ -1,8 +1,3 @@
-# build grpcurl
-FROM golang:1.24 AS build
-RUN go install github.com/fullstorydev/grpcurl/cmd/grpcurl@v1.9.3
-RUN go install github.com/mr-karan/doggo/cmd/doggo@v1.0.5
-
 # fetch containerd cli & kubectl tools
 FROM curlimages/curl:8.13.0 AS curl
 ARG TARGETARCH
@@ -37,6 +32,7 @@ RUN apt-get update && apt-get install -y \
         iperf \
         iptables \
         iputils-ping \
+        iproute2 \
         jq \
         lsof \
         net-tools \
@@ -45,9 +41,6 @@ RUN apt-get update && apt-get install -y \
         procinfo \
         procps \
         socat \
-        stress \
-        stress-ng \
-        sysbench \
         tcpdump \
         tmux \
         vim \

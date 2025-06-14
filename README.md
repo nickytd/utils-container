@@ -1,33 +1,37 @@
 # utils-container
-An ubuntu based image (25.04) used for troubeshooting tasks.
-Includes:
+
+An ubuntu based image (25.10) used for troubleshooting tasks.
+
+## Added packages
+
 - bash
+- bpftrace
 - bridge-utils
-- crictl (from https://github.com/kubernetes-sigs/cri-tools)
 - curl
 - dnsutils
-- doggo (from https://github.com/mr-karan/doggo)
 - fzf
 - fd-find
-- grpcurl (from https://github.com/fullstorydev/grpcurl)
+- iftop
 - iotop
 - iperf
 - iptables
 - iputils-ping
+- iproute2
 - jq
-- kubectl (from https://dl.k8s.io/)
+- lsof
 - net-tools
 - netcat-traditional
 - nmap
 - procinfo
 - procps
 - socat
-- stress
-- stress-ng
-- sysbench
-- systemd
-- tmux
 - tcpdump
+- tmux
 - vim
 - yq
 - wget
+
+## Compiled tools
+
+- crictl (from <https://github.com/kubernetes-sigs/cri-tools>)
+- kubectl (from <https://dl.k8s.io/>)
