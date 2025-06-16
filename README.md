@@ -13,7 +13,7 @@ An ubuntu based image (25.10) used for troubleshooting tasks.
 - fd-find
 - iftop
 - iotop
-- iperf
+- iperf3
 - iptables
 - iputils-ping
 - iproute2
