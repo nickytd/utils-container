@@ -1,35 +1,40 @@
 # utils-container
 
-An ubuntu based image (25.10) used for troubleshooting tasks.
+A debian:bookworm-slim based image used for troubleshooting tasks.
 
 ## Added packages
 
+### Core utilities
+
 - bash
-- bpftrace
-- bridge-utils
 - curl
+- ca-certificates
+
+### Network debugging (core set)
+
 - dnsutils
-- fzf
-- fd-find
-- iftop
-- iotop
-- iperf3
 - iptables
 - iputils-ping
 - iproute2
-- jq
-- lsof
-- net-tools
-- netcat-traditional
-- nmap
-- procinfo
-- procps
+- netcat-openbsd
 - socat
 - tcpdump
-- tmux
-- vim
+
+### System monitoring (essential)
+
+- lsof
+- procps
+- systemd (journalctl, systemctl)
+
+### File/text processing
+
+- jq
 - yq
-- wget
+
+### Terminal/editor
+
+- tmux
+- nvi
 
 ## Compiled tools
 

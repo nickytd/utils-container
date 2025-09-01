@@ -1,52 +1,68 @@
 # fetch containerd cli & kubectl tools
-FROM curlimages/curl:8.13.0 AS curl
+FROM curlimages/curl:8.15.0 AS downloader
 ARG TARGETARCH
-ENV VERSION="v1.33.0"
+ENV CRICTL_VERSION="v1.34.0"
 WORKDIR /tmp
-RUN curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
-        tar zxvf crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
-        rm -f crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
-        curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${TARGETARCH}/kubectl
 
-# build utils container image
-FROM ubuntu:25.10
-# pickup crictl from curl image
-COPY --from=curl /tmp/crictl /usr/local/bin
-# pickup kubectl from curl image
-COPY --from=curl /tmp/kubectl /usr/local/bin
-# copy tmux configuration
+# Download and extract crictl
+RUN curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${TARGETARCH}.tar.gz && \
+    tar zxf crictl-${CRICTL_VERSION}-linux-${TARGETARCH}.tar.gz && \
+    rm crictl-${CRICTL_VERSION}-linux-${TARGETARCH}.tar.gz && \
+    chmod +x crictl
+
+# Download kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${TARGETARCH}/kubectl" && \
+    chmod +x kubectl
+
+# Main image build
+FROM debian:bookworm-slim
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Copy binaries from downloader stage
+COPY --from=downloader /tmp/crictl /usr/local/bin/crictl
+COPY --from=downloader /tmp/kubectl /usr/local/bin/kubectl
+
+# Copy configuration files in single layer
 COPY ./.tmux.conf /root/.tmux.conf
-# copy bash aliases
 COPY ./.bash_aliases /root/.bash_aliases
-# install required binaries with os package manager
-RUN apt-get update && apt-get install -y \
+
+# Install essential packages only, grouped by purpose
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+        # Core utilities
         bash \
-        bpftrace \
-        bridge-utils \
         curl \
+        ca-certificates \
+        # Network debugging (core set)
         dnsutils \
-        fzf \
-        fd-find \
-        iftop \
-        iotop \
-        iperf3 \
         iptables \
         iputils-ping \
         iproute2 \
-        jq \
-        lsof \
-        net-tools \
-        netcat-traditional \
-        nmap \
-        procinfo \
-        procps \
+        netcat-openbsd \
         socat \
         tcpdump \
-        tmux \
-        vim \
+        # System monitoring (essential)
+        lsof \
+        procps \
+        systemd \
+        # File/text processing
+        jq \
         yq \
-        wget && \
-        apt-get autoremove --purge && apt-get clean
+        # Terminal/editor
+        tmux \
+        nvi \
+        && \
+    # Thorough cleanup
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    # Create necessary directories
+    mkdir -p /root/.config
 
-# start tmux by default
-CMD [ "tmux" ]
+# Set working directory
+WORKDIR /root
+
+# Default command
+CMD ["tmux"]
