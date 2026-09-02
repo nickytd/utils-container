@@ -1,8 +1,8 @@
 # fetch containerd cli & kubectl tools
-FROM curlimages/curl:8.18.0 AS downloader
+FROM curlimages/curl:8.21.0 AS downloader
 ARG TARGETARCH
-ENV CRICTL_VERSION="v1.35.0"
-ENV WITR_VERSION="0.3.0"
+ENV CRICTL_VERSION="v1.37.0"
+ENV WITR_VERSION="0.3.3"
 WORKDIR /tmp
 
 # Download and extract crictl
